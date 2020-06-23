@@ -9,3 +9,7 @@ worker/
 node_modules/
 .cargo-ok
 .idea/
+hidden.js
+.env
+.env.local
+.env.beta
