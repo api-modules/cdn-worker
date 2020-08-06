@@ -1,7 +1,7 @@
 import { fetchImageFromDiscord, fetchNormalImage, getImageFetchUrl } from './functions';
 
-const ITEM_REGEX = /([A-Z]{2}-)?[0-9a-zA-Z]{10,}/; // With optional prefix for now, until implemented
-// const ITEM_REGEX = /[A-Z]{2}-[0-9a-zA-Z]{10,}/;
+// const ITEM_REGEX = /^([A-Z]{2}-)?[0-9a-zA-Z]{10,}$/; // With optional prefix for now, until implemented
+const ITEM_REGEX = /^[A-Z]{2}-[0-9a-zA-Z]{10,}$/;
 
 addEventListener('fetch', event => {
   const method = event.request.method;
