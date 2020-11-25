@@ -42,16 +42,13 @@ async function handleRequest (event) {
  * @return Response
  */
 async function fetchCdnImage(imageId, event) {
-  const lookUpUrl = getImageFetchUrl(imageId);
   const cache = caches.default;
   const request = event.request;
   let response = await cache.match(request);
-  // let response = await cache.match(lookUpUrl);
 
   if (!response) {
+    const lookUpUrl = getImageFetchUrl(imageId);
     const actualImageUrl = await fetchRealImageUrl(lookUpUrl);
-
-    console.log(actualImageUrl);
 
     if (!actualImageUrl) {
       return jsonError('Item not present on cdn', 404);
@@ -67,7 +64,7 @@ async function fetchCdnImage(imageId, event) {
 
     const cloned = imageResponse.clone();
     const headers = {
-      'cache-control': 'public, max-age=14400', // 4 hours in seconds
+      'cache-control': 'public, max-age=604800', // 1 week in seconds
       'x-duncte123': 'yes',
       'content-type': cloned.headers.get('content-type'),
     };
@@ -75,7 +72,6 @@ async function fetchCdnImage(imageId, event) {
     response = new Response(cloned.body, { ...cloned, headers });
 
     event.waitUntil(cache.put(request, response.clone()));
-    // event.waitUntil(cache.put(lookUpUrl, response.clone()));
   }
 
   return response;
@@ -84,7 +80,7 @@ async function fetchCdnImage(imageId, event) {
 async function fetchRealImageUrl(url) {
   const res = await fetch(url, {
     headers: {
-      'User-Agent': 'Cloudflare Worker (+https://cdn.duncte123.me/)'
+      'User-Agent': process.env.USER_AGENT
     }
   });
 

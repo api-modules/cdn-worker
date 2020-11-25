@@ -18,7 +18,7 @@ export function fetchImageFromDiscord(discordUrl) {
   return fetch(`${api_base}/discord`, {
     headers: {
       'X-Discord-Url': discordUrl,
-      'User-Agent': 'Cloudflare Worker (+https://cdn.duncte123.me/)'
+      'User-Agent': process.env.USER_AGENT
     }
   });
 }
@@ -31,8 +31,8 @@ export function fetchImageFromDiscord(discordUrl) {
 export async function fetchNormalImage(imageUrl) {
   return fetch(imageUrl, {
     headers: {
-      // 'User-Agent': 'Cloudflare Worker (+https://cdn.duncte123.me/)'
-      'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36'
+      // 'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36'
+      'User-Agent': process.env.USER_AGENT
     }
   });
 }
