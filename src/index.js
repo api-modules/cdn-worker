@@ -56,7 +56,7 @@ async function fetchCdnImage(imageId, event) {
 
     let imageResponse;
 
-    if (actualImageUrl.includes('discord')) {
+    if (actualImageUrl.includes('cdn.discord')) {
       imageResponse = await fetchImageFromDiscord(actualImageUrl);
     } else {
       imageResponse = await fetchNormalImage(actualImageUrl);
